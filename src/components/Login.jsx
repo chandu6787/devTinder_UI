@@ -39,9 +39,14 @@ const Login = () => {
       setLoading(true);
       setError("");
       const res = await axios.post(BASE_URL + "/signup", { emailId, password, firstName, lastName }, { withCredentials: true });
-  
-        dispatch(addUser(res?.data));
+      if(res.status===200)
+      {
+           dispatch(addUser(res?.data));
       navigate("/login");
+
+      }
+  
+     
 
       
       
