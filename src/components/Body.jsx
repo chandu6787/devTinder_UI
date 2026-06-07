@@ -21,6 +21,8 @@ const Body = () => {
         const data = await res.json();
         dispatch(addUser(data));
       } else {
+        const text = await res.text().catch(() => null);
+        console.error("Profile view failed", res.status, text);
         navigate("/login");
       }
     } catch (error) {

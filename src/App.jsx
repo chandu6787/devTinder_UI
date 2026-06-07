@@ -12,36 +12,39 @@ import Requests from "./components/Requests";
 
 const appRouter = createBrowserRouter([
   {
+    path: "/login",
+    element: <Login />,
+  },
+  {
     path: "/",
     element: <Body />,
     children: [
       {
-        path:"/login",
-        index:true,
-        element: <Login />,
+        index: true,
+        element: <Feed />,
       },
       {
-        path:"/feed",
-        element:<Feed/>
-      },{
-        path:"/profile",
-        element:<Profile/>
+        path: "feed",
+        element: <Feed />,
       },
       {
-        path:"/connections",
-        element:<Connections/>
+        path: "profile",
+        element: <Profile />,
       },
       {
-        path:"/requests",
-        element:<Requests/>
-      }
+        path: "connections",
+        element: <Connections />,
+      },
+      {
+        path: "requests",
+        element: <Requests />,
+      },
     ],
   },
 ]);
 function App() {
-
   return (
-    <Provider store={appStore }>
+    <Provider store={appStore}>
       <RouterProvider router={appRouter}></RouterProvider>
     </Provider>
   );

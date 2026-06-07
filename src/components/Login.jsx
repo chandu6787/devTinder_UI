@@ -22,8 +22,11 @@ const Login = () => {
       setLoading(true);
       setError("");
       const res = await axios.post(BASE_URL + "/login", { emailId, password }, { withCredentials: true });
+        if(res.status===200)
+    {
       dispatch(addUser(res?.data));
       navigate("/feed");
+    }
     } catch (error) {
       setError(error?.response?.data || error.message || "Login failed");
     } finally {
@@ -36,8 +39,12 @@ const Login = () => {
       setLoading(true);
       setError("");
       const res = await axios.post(BASE_URL + "/signup", { emailId, password, firstName, lastName }, { withCredentials: true });
-      dispatch(addUser(res?.data));
-      navigate("/profile");
+  
+        dispatch(addUser(res?.data));
+      navigate("/login");
+
+      
+      
     } catch (error) {
       setError(error?.response?.data || error.message || "Signup failed");
     } finally {

@@ -9,10 +9,17 @@ const Connections = () => {
   const dispatch = useDispatch();
 
   const getConnections = async () => {
-    const res = await axios.get(BASE_URL + "user/connections", {
-      withCredentials: true,
-    });
-    dispatch(addConnections(res?.data));
+    try {
+      const res = await axios.get(BASE_URL + "/user/connections", {
+        withCredentials: true,
+      });
+      dispatch(addConnections(res?.data));
+    } catch (error) {
+      console.error(
+        "Connections fetch failed",
+        error?.response || error.message || error,
+      );
+    }
   };
 
   useEffect(() => {
@@ -32,10 +39,21 @@ const Connections = () => {
 
   return (
     <div className="flex flex-col items-center my-10 gap-4 px-4">
-      <h1 className="text-3xl font-bold mb-4 text-base-content">My Connections</h1>
+      <h1 className="text-3xl font-bold mb-4 text-base-content">
+        My Connections
+      </h1>
 
       {connections.map((connection) => {
-        const { _id, firstName, lastName, photoUrl, age, gender, about, skills } = connection;
+        const {
+          _id,
+          firstName,
+          lastName,
+          photoUrl,
+          age,
+          gender,
+          about,
+          skills,
+        } = connection;
         return (
           <div
             key={_id}
@@ -56,7 +74,8 @@ const Connections = () => {
 
               {age && gender && (
                 <p className="text-sm text-base-content/60">
-                  🎂 {age} yrs &nbsp;|&nbsp; {gender === "male" ? "👨" : "👩"} {gender}
+                  🎂 {age} yrs &nbsp;|&nbsp; {gender === "male" ? "👨" : "👩"}{" "}
+                  {gender}
                 </p>
               )}
 
